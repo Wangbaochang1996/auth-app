@@ -1,3 +1,14 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.0.2' // 你的 Android Gradle 插件版本
+        classpath 'com.google.gms:google-services:4.3.15'  // 添加 Firebase 的 google-services 插件
+    }
+}
+
 allprojects {
     repositories {
         google()
