@@ -22,6 +22,26 @@ android {
         jvmTarget = JavaVersion.VERSION_1_8
     }
 
+    signingConfigs {
+        release {
+            storeFile file("D:/myproject/project_auth/config/app-release-key.jks")
+            storePassword "123456"
+            keyAlias "myappkey"
+            keyPassword "123456"
+        }
+    }
+    
+ buildTypes {
+     debug {
+            signingConfig signingConfigs.debug // 确保你已经定义了 debug 配置
+        }
+    release {
+        signingConfig signingConfigs.release // 确保这里使用 release 配置
+    }
+}
+     
+
+
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.example.project_auth"
@@ -33,14 +53,9 @@ android {
         versionName = flutter.versionName
     }
 
-    buildTypes {
-        release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.debug
-        }
-    }
+   
 }
+
 
 flutter {
     source = "../.."
