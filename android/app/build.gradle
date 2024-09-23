@@ -14,35 +14,18 @@ android {
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8
-    }
+        jvmTarget = JavaVersion.VERSION_11
+    }   
 
-    signingConfigs {
-        release {
-            storeFile file("D:/myproject/project_auth/config/app-release-key.jks")
-            storePassword "123456"
-            keyAlias "myappkey"
-            keyPassword "123456"
-        }
-    }
-    
- buildTypes {
-     debug {
-            signingConfig signingConfigs.debug // 确保你已经定义了 debug 配置
-        }
-    release {
-        signingConfig signingConfigs.release // 确保这里使用 release 配置
-    }
-}
      
 
 
-    defaultConfig {
+defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.example.project_auth"
         // You can update the following values to match your application needs.
@@ -52,9 +35,8 @@ android {
         versionCode = flutter.versionCode
         versionName = flutter.versionName
     }
-
-   
 }
+   
 
 
 flutter {

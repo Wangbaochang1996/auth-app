@@ -12,9 +12,9 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   String name = "", email = "", password = "";
   final _formkey = GlobalKey<FormState>();
-  TextEditingController namecontroller = new TextEditingController();
-  TextEditingController emailcontroller = new TextEditingController();
-  TextEditingController passwordcontroller = new TextEditingController();
+  TextEditingController namecontroller = TextEditingController();
+  TextEditingController emailcontroller = TextEditingController();
+  TextEditingController passwordcontroller = TextEditingController();
 
   registration() async {
     if (password != "" &&
@@ -24,7 +24,7 @@ class _SignUpState extends State<SignUp> {
         UserCredential userCredential = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(email: email, password: password);
 
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text(
             "Registered Successfully",
             style: TextStyle(fontSize: 20),
@@ -32,11 +32,11 @@ class _SignUpState extends State<SignUp> {
         ));
 
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Home()));
+            context, MaterialPageRoute(builder: (context) => const Home()));
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
+            const SnackBar(
               backgroundColor: Colors.amber,
               content: Text(
                 "Password Provided is too Weak",
@@ -45,7 +45,7 @@ class _SignUpState extends State<SignUp> {
             ),
           );
         } else if (e.code == 'email-already-in-use') {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               backgroundColor: Colors.deepOrange,
               content: Text(
                 "Account Already exists",
@@ -60,7 +60,7 @@ class _SignUpState extends State<SignUp> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Container(
+      body: SingleChildScrollView(
         child: Column(
           children: [
             SizedBox(
@@ -70,7 +70,7 @@ class _SignUpState extends State<SignUp> {
                 fit: BoxFit.cover,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Padding(
@@ -91,22 +91,22 @@ class _SignUpState extends State<SignUp> {
                       child: TextFormField(
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return "Enter Name";
+                            return "Please Enter Name";
                           }
                           return null;
                         },
                         controller: namecontroller,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           border: InputBorder.none,
                           hintText: "Name",
                           hintStyle: TextStyle(
-                            color: Color(0xFFb2b7bf),
+                            color: Colors.white,
                             fontSize: 18,
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 30.0,
                     ),
                     Container(
@@ -115,59 +115,59 @@ class _SignUpState extends State<SignUp> {
                         horizontal: 30,
                       ),
                       decoration: BoxDecoration(
-                        color: Color(0xFFb2b7bf),
+                        color: const Color(0xFFb2b7bf),
                         borderRadius: BorderRadius.circular(30),
                       ),
                       child: TextFormField(
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return "Enter Email";
+                            return "Please Enter Email";
                           }
                           return null;
                         },
                         controller: emailcontroller,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           border: InputBorder.none,
                           hintText: "Email",
                           hintStyle: TextStyle(
-                            color: Colors.lightBlue,
+                            color: Colors.white,
                             fontSize: 18,
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 30.0,
                     ),
                     Container(
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                         vertical: 2,
                         horizontal: 30,
                       ),
                       decoration: BoxDecoration(
-                        color: Color(0xFFedf0f8),
+                        color: const Color(0xFFb2b7bf),
                         borderRadius: BorderRadius.circular(30),
                       ),
                       child: TextFormField(
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return "Enter Password";
+                            return "Please Enter Password";
                           }
                           return null;
                         },
                         controller: passwordcontroller,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           border: InputBorder.none,
                           hintText: "Password",
                           hintStyle: TextStyle(
-                            color: Color(0xFFb2b7bf),
+                            color: Colors.white,
                             fontSize: 18,
                           ),
                         ),
                         obscureText: true,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 30.0,
                     ),
                     GestureDetector(
@@ -186,15 +186,17 @@ class _SignUpState extends State<SignUp> {
                         padding: const EdgeInsets.symmetric(
                             vertical: 13, horizontal: 30),
                         decoration: BoxDecoration(
-                          color: Color(0xFF273671),
+                          color: const Color(0xFFb2b7bf),
                           borderRadius: BorderRadius.circular(30),
                         ),
-                        child: Text(
-                          "Registration",
-                          style: TextStyle(
-                            color: Colors.blue,
-                            fontSize: 22,
-                            fontWeight: FontWeight.w500,
+                        child: const Center(
+                          child: Text(
+                            "Registration",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 22,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ),
                       ),
@@ -203,10 +205,10 @@ class _SignUpState extends State<SignUp> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 40,
             ),
-            Text(
+            const Text(
               "or LogIn with",
               style: TextStyle(
                 color: Color(0xFF273671),
@@ -214,7 +216,7 @@ class _SignUpState extends State<SignUp> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30.0,
             ),
             SafeArea(
@@ -227,7 +229,7 @@ class _SignUpState extends State<SignUp> {
                     width: 45,
                     fit: BoxFit.cover,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 30,
                   ),
                   Image.asset(
@@ -239,13 +241,13 @@ class _SignUpState extends State<SignUp> {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 40,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
+                const Text(
                   "Already have a account?",
                   style: TextStyle(
                     color: Color(0xFF8c8e98),
@@ -253,12 +255,12 @@ class _SignUpState extends State<SignUp> {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 5,
                 ),
                 GestureDetector(
                   onTap: () {},
-                  child: Text(
+                  child: const Text(
                     "Login",
                     style: TextStyle(
                       color: Color(0xFF273671),
