@@ -1,60 +1,52 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:project_auth/home.dart';
-import 'package:project_auth/login.dart';
+import 'package:project_auth/signup.dart';
 
-class SignUp extends StatefulWidget {
-  const SignUp({super.key});
+class LogIn extends StatefulWidget {
+  const LogIn({super.key});
 
   @override
-  State<SignUp> createState() => _SignUpState();
+  State<LogIn> createState() => _LogInState();
 }
 
-class _SignUpState extends State<SignUp> {
-  String name = "", email = "", password = "";
-  final _formkey = GlobalKey<FormState>();
-  TextEditingController namecontroller = TextEditingController();
-  TextEditingController emailcontroller = TextEditingController();
+class _LogInState extends State<LogIn> {
+  String email = "", password = "";
+  TextEditingController mailcontroller = TextEditingController();
   TextEditingController passwordcontroller = TextEditingController();
-
-  registration() async {
-    if (password != "" &&
-        namecontroller.text != "" &&
-        emailcontroller.text != "") {
-      try {
-        await FirebaseAuth.instance
-            .createUserWithEmailAndPassword(email: email, password: password);
-
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          backgroundColor: Colors.greenAccent,
+  final _formkey = GlobalKey<FormState>();
+  userLogin() async {
+    try {
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          backgroundColor: Colors.green,
           content: Text(
-            "Registered Successfully",
+            "Login Success",
             style: TextStyle(
-                color: Colors.black, fontSize: 18, fontWeight: FontWeight.w500),
-          ),
-        ));
-
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const Home()));
-      } on FirebaseAuthException catch (e) {
-        if (e.code == 'weak-password') {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              backgroundColor: Colors.amber,
-              content: Text(
-                "Password Provided is too Weak",
-                style: TextStyle(fontSize: 20),
+                color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
+          )));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+    } on FirebaseAuthException catch (e) {
+      if (e.code == "user-not-found") {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            backgroundColor: Colors.orange,
+            content: Text(
+              "No User Found for that Email",
+              style: TextStyle(
+                fontSize: 18,
               ),
             ),
-          );
-        } else if (e.code == 'email-already-in-use') {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              backgroundColor: Colors.deepOrange,
-              content: Text(
-                "Account Already exists",
-                style: TextStyle(fontSize: 18),
-              )));
-        }
+          ),
+        );
+      } else if (e.code == "wrong-password") {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            backgroundColor: Colors.orange,
+            content: Text(
+              "Wrong Password Provided by User",
+              style: TextStyle(fontSize: 18),
+            )));
       }
     }
   }
@@ -74,7 +66,7 @@ class _SignUpState extends State<SignUp> {
               ),
             ),
             const SizedBox(
-              height: 30,
+              height: 30.0,
             ),
             Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),
@@ -84,72 +76,38 @@ class _SignUpState extends State<SignUp> {
                   children: [
                     Container(
                       padding: const EdgeInsets.symmetric(
-                        vertical: 2,
-                        horizontal: 30,
-                      ),
+                          vertical: 2, horizontal: 30),
                       decoration: BoxDecoration(
-                        color: Colors.grey,
-                        borderRadius: BorderRadius.circular(30),
+                        color: const Color(0xFFedf0f8),
+                        borderRadius: BorderRadius.circular(20.0),
                       ),
                       child: TextFormField(
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return "Please Enter Name";
+                            return "Please Enter E-mail";
                           }
                           return null;
                         },
-                        controller: namecontroller,
-                        decoration: const InputDecoration(
-                          border: InputBorder.none,
-                          hintText: "Name",
-                          hintStyle: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 30.0,
-                    ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 2,
-                        horizontal: 30,
-                      ),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFb2b7bf),
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: TextFormField(
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return "Please Enter Email";
-                          }
-                          return null;
-                        },
-                        controller: emailcontroller,
+                        controller: mailcontroller,
                         decoration: const InputDecoration(
                           border: InputBorder.none,
                           hintText: "Email",
                           hintStyle: TextStyle(
-                            color: Colors.white,
                             fontSize: 18,
+                            color: Color(0xFFb2b7bf),
                           ),
                         ),
                       ),
                     ),
                     const SizedBox(
-                      height: 30.0,
+                      height: 30,
                     ),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                        vertical: 2,
-                        horizontal: 30,
-                      ),
+                          vertical: 2, horizontal: 30),
                       decoration: BoxDecoration(
-                        color: const Color(0xFFb2b7bf),
-                        borderRadius: BorderRadius.circular(30),
+                        color: const Color(0xFFedf0f8),
+                        borderRadius: BorderRadius.circular(20.0),
                       ),
                       child: TextFormField(
                         validator: (value) {
@@ -161,28 +119,27 @@ class _SignUpState extends State<SignUp> {
                         controller: passwordcontroller,
                         decoration: const InputDecoration(
                           border: InputBorder.none,
-                          hintText: "Password",
+                          hintText: "password",
                           hintStyle: TextStyle(
-                            color: Colors.white,
                             fontSize: 18,
+                            color: Color(0xFFb2b7bf),
                           ),
                         ),
                         obscureText: true,
                       ),
                     ),
                     const SizedBox(
-                      height: 30.0,
+                      height: 30,
                     ),
                     GestureDetector(
                       onTap: () {
                         if (_formkey.currentState!.validate()) {
                           setState(() {
-                            name = namecontroller.text;
-                            email = emailcontroller.text;
+                            email = mailcontroller.text;
                             password = passwordcontroller.text;
                           });
                         }
-                        registration();
+                        userLogin();
                       },
                       child: Container(
                         width: MediaQuery.of(context).size.width,
@@ -190,15 +147,15 @@ class _SignUpState extends State<SignUp> {
                             vertical: 13, horizontal: 30),
                         decoration: BoxDecoration(
                           color: Colors.green,
-                          borderRadius: BorderRadius.circular(30),
+                          borderRadius: BorderRadius.circular(20),
                         ),
                         child: const Center(
                           child: Text(
-                            "Registration",
+                            "Sign In",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 22,
-                              fontWeight: FontWeight.w500,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
@@ -209,40 +166,58 @@ class _SignUpState extends State<SignUp> {
               ),
             ),
             const SizedBox(
-              height: 40,
+              height: 20.0,
+            ),
+            GestureDetector(
+              onTap: () {},
+              child: const Text(
+                "Forgot Password?",
+                style: TextStyle(
+                  color: Color(0xFF8c8e98),
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 30,
             ),
             const Text(
               "or LogIn with",
               style: TextStyle(
                 color: Color(0xFF273671),
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
               ),
             ),
             const SizedBox(
-              height: 30.0,
+              height: 30,
             ),
-            SafeArea(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GestureDetector(
+                  onTap: () {},
+                  child: Image.asset(
                     "images/google.png",
-                    height: 45,
                     width: 45,
+                    height: 45,
                     fit: BoxFit.cover,
                   ),
-                  const SizedBox(
-                    width: 30,
-                  ),
-                  Image.asset(
+                ),
+                const SizedBox(
+                  width: 30,
+                ),
+                GestureDetector(
+                  onTap: () {},
+                  child: Image.asset(
                     "images/apple1.png",
-                    height: 50,
-                    width: 50,
+                    width: 45,
+                    height: 45,
                     fit: BoxFit.cover,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
             const SizedBox(
               height: 40,
@@ -251,7 +226,7 @@ class _SignUpState extends State<SignUp> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
-                  "Already have a account?",
+                  "Don't have an account?",
                   style: TextStyle(
                     color: Color(0xFF8c8e98),
                     fontSize: 18,
@@ -263,18 +238,20 @@ class _SignUpState extends State<SignUp> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => LogIn()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SignUp()));
                   },
                   child: const Text(
-                    "Login",
+                    "Registration",
                     style: TextStyle(
                       color: Color(0xFF273671),
-                      fontSize: 18,
+                      fontSize: 20,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                ),
+                )
               ],
             ),
           ],
