@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:project_auth/forgot_password.dart';
 import 'package:project_auth/home.dart';
 import 'package:project_auth/signup.dart';
 
@@ -26,7 +27,8 @@ class _LogInState extends State<LogIn> {
             style: TextStyle(
                 color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
           )));
-      Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => const Home()));
     } on FirebaseAuthException catch (e) {
       if (e.code == "user-not-found") {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -169,7 +171,12 @@ class _LogInState extends State<LogIn> {
               height: 20.0,
             ),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ForgotPassword()));
+              },
               child: const Text(
                 "Forgot Password?",
                 style: TextStyle(
