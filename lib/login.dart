@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:project_auth/forgot_password.dart';
 import 'package:project_auth/home.dart';
+import 'package:project_auth/service/auth.dart';
 import 'package:project_auth/signup.dart';
 
 class LogIn extends StatefulWidget {
@@ -202,7 +203,9 @@ class _LogInState extends State<LogIn> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    AuthMethods().signInWithGoole(context);
+                  },
                   child: Image.asset(
                     "images/google.png",
                     width: 45,
