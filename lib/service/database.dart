@@ -15,4 +15,8 @@ class DatabaseMethods {
         .doc(id)
         .set(employeeInfoMap);
   }
+
+  Future<Stream<QuerySnapshot>> getEmployeeDetails() async {
+    return await FirebaseFirestore.instance.collection("employee").snapshots();
+  }
 }

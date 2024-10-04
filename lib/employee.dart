@@ -13,9 +13,9 @@ class Employee extends StatefulWidget {
 }
 
 class _EmployeeState extends State<Employee> {
-  TextEditingController namecontroller = new TextEditingController();
-  TextEditingController agecontroller = new TextEditingController();
-  TextEditingController locationcontroller = new TextEditingController();
+  TextEditingController namecontroller = TextEditingController();
+  TextEditingController agecontroller = TextEditingController();
+  TextEditingController locationcontroller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
