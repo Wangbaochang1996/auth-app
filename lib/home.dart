@@ -164,120 +164,122 @@ class _HomeState extends State<Home> {
   Future EditEmpolyeeDetail(String id) => showDialog(
       context: context,
       builder: (context) => AlertDialog(
-            content: Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: Icon(Icons.cancel),
-                      ),
-                      SizedBox(width: 40),
-                      Text(
-                        "Edit",
-                        style: TextStyle(
-                            color: Colors.blue,
-                            fontSize: 25.0,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(width: 10),
-                      Text(
-                        "Details",
-                        style: TextStyle(
-                            color: Colors.amber,
-                            fontSize: 25.0,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                  Text(
-                    "Name",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 24.0,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    padding: EdgeInsets.only(left: 15),
-                    decoration: BoxDecoration(
-                        border: Border.all(),
-                        borderRadius: BorderRadius.circular(15)),
-                    child: TextField(
-                      controller: namecontroller,
-                      decoration: InputDecoration(border: InputBorder.none),
+            content: SingleChildScrollView(
+              child: Container(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Icon(Icons.cancel),
+                        ),
+                        SizedBox(width: 40),
+                        Text(
+                          "Edit",
+                          style: TextStyle(
+                              color: Colors.blue,
+                              fontSize: 25.0,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(width: 10),
+                        Text(
+                          "Details",
+                          style: TextStyle(
+                              color: Colors.amber,
+                              fontSize: 25.0,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
                     ),
-                  ),
-                  SizedBox(
-                    height: 30.0,
-                  ),
-                  Text(
-                    "Age",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 24.0,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    padding: EdgeInsets.only(left: 15),
-                    decoration: BoxDecoration(
-                        border: Border.all(),
-                        borderRadius: BorderRadius.circular(15)),
-                    child: TextField(
-                      controller: agecontroller,
-                      decoration: InputDecoration(border: InputBorder.none),
+                    Text(
+                      "Name",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 24.0,
+                          fontWeight: FontWeight.bold),
                     ),
-                  ),
-                  SizedBox(
-                    height: 30.0,
-                  ),
-                  Text(
-                    "Location",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 24.0,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    padding: EdgeInsets.only(left: 15),
-                    decoration: BoxDecoration(
-                        border: Border.all(),
-                        borderRadius: BorderRadius.circular(15)),
-                    child: TextField(
-                      controller: locationcontroller,
-                      decoration: InputDecoration(border: InputBorder.none),
+                    SizedBox(
+                      height: 10,
                     ),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Center(
-                    child: ElevatedButton(
-                        onPressed: () async {
-                          Map<String, dynamic> updateInfo = {
-                            "Name": namecontroller.text,
-                            "Age": agecontroller.text,
-                            "Id": id,
-                            "Location": locationcontroller.text,
-                          };
-                          await DatabaseMethods()
-                              .updateEmployeeDetails(id, updateInfo);
-                        },
-                        child: Text("Update")),
-                  ),
-                ],
+                    Container(
+                      padding: EdgeInsets.only(left: 15),
+                      decoration: BoxDecoration(
+                          border: Border.all(),
+                          borderRadius: BorderRadius.circular(15)),
+                      child: TextField(
+                        controller: namecontroller,
+                        decoration: InputDecoration(border: InputBorder.none),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 30.0,
+                    ),
+                    Text(
+                      "Age",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 24.0,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(left: 15),
+                      decoration: BoxDecoration(
+                          border: Border.all(),
+                          borderRadius: BorderRadius.circular(15)),
+                      child: TextField(
+                        controller: agecontroller,
+                        decoration: InputDecoration(border: InputBorder.none),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 30.0,
+                    ),
+                    Text(
+                      "Location",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 24.0,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(left: 15),
+                      decoration: BoxDecoration(
+                          border: Border.all(),
+                          borderRadius: BorderRadius.circular(15)),
+                      child: TextField(
+                        controller: locationcontroller,
+                        decoration: InputDecoration(border: InputBorder.none),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Center(
+                      child: ElevatedButton(
+                          onPressed: () async {
+                            Map<String, dynamic> updateInfo = {
+                              "Name": namecontroller.text,
+                              "Age": agecontroller.text,
+                              "Id": id,
+                              "Location": locationcontroller.text,
+                            };
+                            await DatabaseMethods()
+                                .updateEmployeeDetails(id, updateInfo);
+                          },
+                          child: Text("Update")),
+                    ),
+                  ],
+                ),
               ),
             ),
           ));
